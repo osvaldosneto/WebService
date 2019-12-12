@@ -1,0 +1,213 @@
+FORMAT: 1A
+HOST: http://0.0.0.0:5000
+
+# Group seed
+
+## seed [/seed]
+
+### Add seed [POST]
+
+Para adicionar uma semente, recebe um json contendo um inteiro que será utilizado como base no sorteio das operações
+    
+Request (application/json)
+
+        {
+            "seed": 10
+        }
+
++ Response 201
+
+
+# Group replicas
+
+## replicas [/replicas]
+
+### Adicionar replicas [POST]
+
+Para adicionar as replicas, recebe um json contendo os dados de todas as replicas
+
++ Request (application/json)
+     
+        {
+            "replicas" : {
+                {
+                    "id" : "replica 1",
+                    "endpoint" : "http://0.0.0.0:5001"
+                },
+                {
+                    "id" : "replica 2",
+                    "endpoint" : "http://0.0.0.0:5002"
+                }
+            }
+        }  
+
+
+
++ Response 201
+
+        {
+            "replicas" : {
+                {
+                    "id" : "replica 1",
+                    "endpoint" : "http://0.0.0.0:5001"
+                },
+                {
+                    "id" : "replica 2",
+                    "endpoint" : "http://0.0.0.0:5002"
+                }
+            }
+        }  
+
+### Excluir lista de replicas [DELETE]
+
+Para excluir todos as replicas armazenadas no sistema
+
++ Response 200 (text/plain)
+
+### Lista de replicas carregadas [GET]
+
+Retorna todas as replicas existentes no sistema
+
++ Response 200
+
+        {
+            "replicas" : {
+                {
+                    "id" : "replica 1",
+                    "endpoint" : "http://0.0.0.0:5001"
+                },
+                {
+                    "id" : "replica 2",
+                    "endpoint" : "http://0.0.0.0:5002"
+                }
+            }
+        } 
+
+
+# Group Ações
+
+## acoes [/acoes]
+
+### Ver ações [GET]
+
+Para acessar todas as operações contidas no sistema.
+
++ Response 200
+
+        { "acoes" : [
+            {
+                "id" : "19148f6d-1318-4887-b2b6-215bfc8ac35f",
+                "status" : "success"
+            },
+            {
+                "id" : "0fcf8b5f-622b-4923-81c4-43b1753e403f",
+                "status" : "fail"
+            }
+            ] 
+        }
+
+
+# Group Contas
+
+## Contas [/contas]
+
+### Adicionar lista de contas [POST]
+
+Para adicionar uma lista de contas deve enviar um json com as contas e saldos.
+
++ Request (application/json)
+        
+        {
+            "contas" : [
+                {
+                    "numero" : "1234",
+                    "saldo" : "100,00"
+                },
+                {
+                    "numero" : "4345",
+                    "saldo" : "50,00"
+                }
+            ]
+        }
+
+
++ Response 201
+        
+        {
+            "contas" : [
+                {
+                    "numero" : "1234",
+                    "saldo" : "100,00"
+                },
+                {
+                    "numero" : "4345",
+                    "saldo" : "50,00"
+                }
+            ]
+        }
+
+
+### Lista de contas [GET]
+
+Para acessar todas as contas e seus devidos saldos contidos no sistema.
+
++ Response 200
+            
+        {
+            "contas" : [
+                {
+                    "numero" : "1234",
+                    "saldo" : "100,00"
+                },
+                {
+                    "numero" : "4345",
+                    "saldo" : "50,00"
+                }
+            ]
+        }
+
+
+# Group acao
+
+## Ação [/acao]
+
+### Para enviar uma ação [POST]
+
+Para enviar uma ação (débito ou crédito) deve-se receber um json com as devidas informações.
+
++ Request (application/json)
+        
+        {
+            "id" : "19148f6d-1318-4887-b2b6-215bfc8ac35f",
+            "operacao" : "debito",
+            "conta" : "1234",
+            "valor" : "10,00"
+        }
+
++ Response 201
+
+
+### Para enviar uma ação [PUT]
+
+Para enviar uma decisão, deve-se receber um json com a id do procedimento.
+
++ Request (application/json)
+        
+        {
+            "id" : "19148f6d-1318-4887-b2b6-215bfc8ac35f",
+        }
+
++ Response 200
+
+
+### Para deletar uma ação [DELETE]
+
+Para acabar a ação sem transação alguma, deve-se enviar a id no formato json.
+
++ Request (application/json)
+        
+        {
+            "id" : "19148f6d-1318-4887-b2b6-215bfc8ac35f",
+        }
+
++ Response 200
